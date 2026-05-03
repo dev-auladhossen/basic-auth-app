@@ -14,17 +14,18 @@ router.post("/register", async (req, res) => {
     if (user) return res.json({ msg: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("email", email);
+    console.log("hashedPassword", hashedPassword);
 
     user = new User({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await user.save();
 
     res.json({ msg: "Registered successfully" });
-
   } catch (err) {
     res.status(500).send("Server Error");
   }
@@ -44,7 +45,6 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
     res.json({ msg: "Login successful", token });
-
   } catch (err) {
     res.status(500).send("Server Error");
   }

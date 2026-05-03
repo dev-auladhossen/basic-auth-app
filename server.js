@@ -6,7 +6,7 @@ const path = require("path");
 dotenv.config();
 
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -24,8 +24,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // Start server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
-console.log("Root Dir:", __dirname);
